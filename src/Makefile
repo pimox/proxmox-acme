@@ -1,5 +1,6 @@
 PREFIX=/usr
 ACMEDIR=${PREFIX}/share/proxmox-acme/
+PERLDIR=${PREFIX}/share/perl5
 
 ACME_SOURCES = \
 	dnsapi/dns_nsone.sh \
@@ -102,12 +103,20 @@ ACME_SOURCES = \
 	dnsapi/dns_neodigit.sh \
 	dnsapi/dns_mydnsjp.sh \
 
+LIB_SOURCES = \
+	ACME.pm \
+	ACME/Challenge.pm \
+	ACME/StandAlone.pm \
+
 all:
 
 .PHONY: install
 install:
 	install -D -m 0744 proxmox-acme ${DESTDIR}${ACMEDIR}/proxmox-acme
 	for i in ${ACME_SOURCES}; do install -D -m 0644 $$i ${DESTDIR}${ACMEDIR}/$$i; done
+	install -d -m 0755 ${DESTDIR}${PERLDIR}/PVE
+	install -d -m 0755 ${DESTDIR}${PERLDIR}/PVE/ACME
+	for i in ${LIB_SOURCES}; do install -D -m 0644 PVE/$$i ${DESTDIR}${PERLDIR}/PVE/$$i; done
 
 .PHONY: clean
 clean:
