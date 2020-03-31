@@ -107,6 +107,7 @@ LIB_SOURCES = \
 	ACME.pm \
 	ACME/Challenge.pm \
 	ACME/StandAlone.pm \
+	ACME/DNSChallenge.pm \
 
 all:
 

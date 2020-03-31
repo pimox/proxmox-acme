@@ -23,6 +23,8 @@ file_set_contents
 file_get_contents
 );
 
+use PVE::ACME::DNSChallenge;
+
 Crypt::OpenSSL::RSA->import_random_seed();
 
 my $LETSENCRYPT_STAGING = 'https://acme-staging-v02.api.letsencrypt.org/directory';
