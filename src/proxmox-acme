@@ -9,6 +9,8 @@ USER_AGENT="$PROJECT_NAME/$VER"
 DNS_PLUGIN_PATH="/usr/share/proxmox-acme/dnsapi"
 HTTP_HEADER="$(mktemp)"
 
+DEBUG="0"
+
 _base64() {
   openssl base64 -e | tr -d '\r\n'
 }
@@ -532,27 +534,31 @@ _cleardomainconf() {
 }
 
 _debug() {
-  return
+  if [[ $DEBUG -eq 0 ]]; then
+    return
+  fi
+  printf -- "%s" "[$(date)] " >&1
+  echo "$1 $2"
 }
 
 _debug2() {
-  return
+  _debug $1 $2
 }
 
 _debug3() {
-  return
+  _debug $1 $2
 }
 
 _secure_debug() {
-  return
+  _debug $1 $2
 }
 
 _secure_debug2() {
-  return
+  _debug $1 $2
 }
 
 _secure_debug3() {
-  return
+  _debug $1 $2
 }
 
 _saveaccountconf() {
@@ -601,6 +607,7 @@ _load_plugin_config() {
 # $2 <String> Fully Qualified Domain Name
 # $3 <String> value for TXT record
 # $4 <String> DNS plugin auth and config parameter separated by ","
+# $5 <Integer> 0 is off, and the default all others are on.
 
 setup() {
   dns_plugin="dns_$1"
@@ -608,6 +615,7 @@ setup() {
   fqdn="_acme-challenge.$2"
   txtvalue=$3
   plugin_conf_string=$4
+  DEBUG=$5
 
   _load_plugin_config
 
@@ -634,6 +642,7 @@ teardown() {
   fqdn="_acme-challenge.$2"
   txtvalue=$3
   plugin_conf_string=$4
+  DEBUG=$5
 
   _load_plugin_config
 
