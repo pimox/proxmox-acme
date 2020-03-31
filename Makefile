@@ -12,6 +12,7 @@ all: $(DEB)
 
 $(BUILDDIR): src debian
 	rm -rf $(BUILDDIR)
+
 	rsync -a src/ debian $(BUILDDIR)
 	# remove if repository exists
 	# echo "git clone git://git.proxmox.com/git/proxmox-acme\\ngit checkout $(GITVERSION)" > $(BUILDDIR)/debian/SOURCE
