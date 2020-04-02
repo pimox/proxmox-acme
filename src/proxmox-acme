@@ -1,5 +1,12 @@
 #!/usr/bin/env sh
 
+VER=0.9
+
+PROJECT_NAME="ProxmoxACME"
+
+USER_AGENT="$PROJECT_NAME/$VER"
+
+DNS_PLUGIN_PATH="/usr/share/proxmox-acme/dnsapi"
 HTTP_HEADER="$(mktemp)"
 
 _base64() {
@@ -587,3 +594,64 @@ _load_plugin_config() {
 	index="$(_math "$index" - 1)"
     done
 }
+
+# call setup and teardown direct
+# the parameter must be set in the correct order
+# $1 <String> DNS Plugin name
+# $2 <String> Fully Qualified Domain Name
+# $3 <String> value for TXT record
+# $4 <String> DNS plugin auth and config parameter separated by ","
+
+setup() {
+  dns_plugin="dns_$1"
+  dns_plugin_path="${DNS_PLUGIN_PATH}/${dns_plugin}.sh"
+  fqdn="_acme-challenge.$2"
+  txtvalue=$3
+  plugin_conf_string=$4
+
+  _load_plugin_config
+
+  if ! . "$dns_plugin_path"; then
+    _err "Load file $dns_plugin error."
+    return 1
+  fi
+
+  addcommand="${dns_plugin}_add"
+  if ! _exists "$addcommand"; then
+    _err "It seems that your api file is not correct, it must have a function named: $addcommand"
+    return 1
+  fi
+
+  if ! $addcommand "$fqdn" "$txtvalue"; then
+    _err "Error add txt for domain:$fulldomain"
+    return 1
+  fi
+}
+
+teardown() {
+  dns_plugin="dns_$1"
+  dns_plugin_path="${DNS_PLUGIN_PATH}/${dns_plugin}.sh"
+  fqdn="_acme-challenge.$2"
+  txtvalue=$3
+  plugin_conf_string=$4
+
+  _load_plugin_config
+
+  if ! . "$dns_plugin_path"; then
+    _err "Load file $dns_plugin error."
+    return 1
+  fi
+
+  rmcommand="${dns_plugin}_rm"
+  if ! _exists "$rmcommand"; then
+    _err "It seems that your api file is not correct, it must have a function named: $rmcommand"
+    return 1
+  fi
+
+  if ! $rmcommand "$fqdn" "$txtvalue"; then
+    _err "Error add txt for domain:$fulldomain"
+    return 1
+  fi
+}
+
+"$@"
