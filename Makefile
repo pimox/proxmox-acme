@@ -8,12 +8,18 @@ GITVERSION:=$(shell git rev-parse HEAD)
 DEB=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}_all.deb
 DSC=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}.dsc
 
+DNSAPI="acme.sh/dnsapi"
+
 all: $(DEB)
 
-$(BUILDDIR): src debian
-	rm -rf $(BUILDDIR)
+.PHONY: submodule
+submodule:
+	test -d $(DNSAPI) || git submodule update --init --recursive
 
+$(BUILDDIR): src debian submodule
+	rm -rf $(BUILDDIR)
 	rsync -a src/ debian $(BUILDDIR)
+	rsync -a $(DNSAPI) $(BUILDDIR)
 	# remove if repository exists
 	# echo "git clone git://git.proxmox.com/git/proxmox-acme\\ngit checkout $(GITVERSION)" > $(BUILDDIR)/debian/SOURCE
 
