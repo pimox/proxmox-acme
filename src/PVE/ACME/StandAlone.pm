@@ -34,41 +34,26 @@ sub extract_challenge {
 }
 
 sub setup {
-    my ($class, $acme, $authorization) = @_;
+    my ($class, $data) = @_;
 
-    my $challenges = $authorization->{challenges};
-    die "no challenges defined in authorization\n" if !$challenges;
+    print "Setting up webserver\n";
 
-    my $http_challenges = [ grep {$_->{type} eq 'http-01'} @$challenges ];
-    die "no http-01 challenge defined in authorization\n"
-	if ! scalar $http_challenges;
-
-    my $http_challenge = $http_challenges->[0];
-
-    die "no token found in http-01 challenge\n" if !$http_challenge->{token};
-
-    my $key_authorization = $acme->key_authorization($http_challenge->{token});
+    my $key_auth = $data->{key_authorization};
 
     my $server = HTTP::Daemon->new(
 	LocalPort => 80,
 	ReuseAddr => 1,
-    ) or die "Failed to initialize HTTP daemon\n";
+	) or die "Failed to initialize HTTP daemon\n";
     my $pid = fork() // die "Failed to fork HTTP daemon - $!\n";
     if ($pid) {
-	my $self = {
-	    server => $server,
-	    pid => $pid,
-	    authorization => $authorization,
-	    key_auth => $key_authorization,
-	    url => $http_challenge->{url},
-	};
-
-	return bless $self, $class;
+	$data->{server} = $server;
+	$data->{pid} = $pid;
     } else {
 	while (my $c = $server->accept()) {
 	    while (my $r = $c->get_request()) {
-		if ($r->method() eq 'GET' and $r->uri->path eq "/.well-known/acme-challenge/$http_challenge->{token}") {
-		    my $resp = HTTP::Response->new(200, 'OK', undef, $key_authorization);
+		if ($r->method() eq 'GET' and
+		    $r->uri->path eq "/.well-known/acme-challenge/$data->{token}") {
+		    my $resp = HTTP::Response->new(200, 'OK', undef, $key_auth);
 		    $resp->request($r);
 		    $c->send_response($resp);
 		} else {
@@ -82,11 +67,11 @@ sub setup {
 }
 
 sub teardown {
-    my ($self) = @_;
+    my ($self, $data) = @_;
 
-    eval { $self->{server}->close() };
-    kill('KILL', $self->{pid});
-    waitpid($self->{pid}, 0);
+    eval { $data->{server}->close() };
+    kill('KILL', $data->{pid});
+    waitpid($data->{pid}, 0);
 }
 
 1;
