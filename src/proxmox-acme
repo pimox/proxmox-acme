@@ -568,3 +568,22 @@ _source_plugin_config() {
   return
 }
 
+# Proxmox implementation to inject the DNSAPI variables
+_load_plugin_config() {
+    tmp_str="${plugin_conf_string//[^,]}"
+    index="$(_math ${#tmp_str} + 1)"
+    while [ "$index" -gt "0" ]
+    do
+	field=$(_getfield $plugin_conf_string "$index" ",")
+	ADDR=(${field/=/ })
+	key="${ADDR[0]}"
+	value="${ADDR[1]}"
+
+	# decode base64 encoded values
+	value=$(echo $value | /usr/bin/openssl base64 -d -A)
+
+	# acme.sh uses eval insted of export
+	export "$key"="$value"
+	index="$(_math "$index" - 1)"
+    done
+}
