@@ -12,6 +12,27 @@ sub supported_challenge_types {
     return { 'http-01' => 1 };
 }
 
+sub type {
+    return 'standalone';
+}
+
+sub properties {
+    return {};
+}
+
+sub options {
+    return {
+	nodes => { optional => 1 },
+	disable => { optional => 1 },
+    };
+}
+
+sub extract_challenge {
+    my ($self, $challenge) = @_;
+
+    return PVE::ACME::Challenge->extract_challenge($challenge, 'http-01');
+}
+
 sub setup {
     my ($class, $acme, $authorization) = @_;
 
