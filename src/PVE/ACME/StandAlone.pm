@@ -33,6 +33,10 @@ sub extract_challenge {
     return PVE::ACME::Challenge->extract_challenge($challenge, 'http-01');
 }
 
+sub get_subplugins {
+    return [];
+}
+
 sub setup {
     my ($class, $data) = @_;
 

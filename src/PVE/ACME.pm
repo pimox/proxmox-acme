@@ -495,6 +495,27 @@ sub request_challenge_validation {
     return $return;
 }
 
+# return all availible subplugins from the plugins
+sub get_subplugins {
+
+    my $tmp = [];
+    my $plugins = PVE::ACME::Challenge->lookup_types();
+
+    foreach my $plugin_name (@$plugins) {
+	my $plugin = PVE::ACME::Challenge->lookup($plugin_name);
+	push @$tmp, $plugin->get_subplugins();
+    }
+
+    my $subplugins = [];
+    foreach my $array (@$tmp) {
+	foreach my $subplugin ( @$array) {
+	    push @$subplugins, $subplugin;
+	}
+    }
+
+    return $subplugins;
+}
+
 # actually 'do' a $method request on $url
 # $data: input for JWS, optional
 # $use_jwk: use JWK instead of KID in JWD (see sub jws)

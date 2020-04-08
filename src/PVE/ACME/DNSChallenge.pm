@@ -153,6 +153,10 @@ sub extract_challenge {
 
     return PVE::ACME::Challenge->extract_challenge($challenge, 'dns-01');
 }
+    
+sub get_subplugins {
+    return $api_name_list;
+}
 
 # The order of the parameters passed to proxmox-acme is important
 # proxmox-acme setup $plugin [$domain|$alias] $txtvalue $plugin_conf_string
