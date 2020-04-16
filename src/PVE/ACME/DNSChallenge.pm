@@ -172,7 +172,7 @@ sub setup {
     # for security reasons, we execute the command as nobody
     # we can't verify that the code of the DNSPlugins are harmless.
     my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--"];
-    push @$cmd, "/usr/bin/bash", $ACME_PATH, "setup", $dnsplugin, $domain;
+    push @$cmd, "/bin/bash", $ACME_PATH, "setup", $dnsplugin, $domain;
     push @$cmd,	$txtvalue, $plugin_conf_string;
 
     PVE::Tools::run_command($cmd, outfunc => $outfunc);
@@ -193,7 +193,7 @@ sub teardown {
     # for security reasons, we execute the command as nobody
     # we can't verify that the code of the DNSPlugins are harmless.
     my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--"];
-    push @$cmd, "/usr/bin/bash", "$ACME_PATH", "teardown",  $dnsplugin, $domain ;
+    push @$cmd, "/bin/bash", "$ACME_PATH", "teardown",  $dnsplugin, $domain ;
     push @$cmd, $txtvalue, $plugin_conf_string;
     PVE::Tools::run_command($cmd, outfunc => $outfunc);
     print "Remove TXT record: _acme-challenge.$domain\n";
