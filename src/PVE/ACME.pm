@@ -46,7 +46,7 @@ my $LETSENCRYPT_STAGING = 'https://acme-staging-v02.api.letsencrypt.org/director
 # b) # pick $challenge from $authorization->{challenges} according to desired type
 # c) my $key_auth = $acme->key_authorization($challenge->{token});
 # d) # setup challenge validation according to specification
-# e) $acme->request_challenge_validation($challenge->{url}, $key_auth);
+# e) $acme->request_challenge_validation($challenge->{url});
 # f) # poll $acme->get_authorization($auth_url) until status is 'valid'
 # 5) # generate CSR in PEM format
 # 6) $acme->finalize_order($order, $csr);
@@ -485,11 +485,9 @@ sub revoke_certificate {
 # call after validation has been setup
 # returns (potentially updated) challenge object
 sub request_challenge_validation {
-    my ($self, $url, $key_authorization) = @_;
+    my ($self, $url) = @_;
 
-    my $req = { keyAuthorization => $key_authorization };
-
-    my $r = $self->do(POST => $url, $req);
+    my $r = $self->do(POST => $url, {});
     my $return = eval { __get_result($r, 200); };
     $self->fatal("POST to '$url' failed - $@", $r) if $@;
     return $return;
