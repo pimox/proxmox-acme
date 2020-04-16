@@ -31,6 +31,22 @@ sub private {
     return $defaultData;
 }
 
+sub parse_config {
+    my ($class, $filename, $raw) = @_;
+
+    my $cfg = $class->SUPER::parse_config($filename, $raw);
+    my $ids = $cfg->{ids};
+
+    # make sure we have a standalone plugin definition as fallback!
+    if (!$ids->{standalone} || $ids->{standalone}->{type} ne 'standalone') {
+	$ids->{standalone} = {
+	    type => 'standalone',
+	};
+    }
+
+    return $cfg;
+}
+
 sub supported_challenge_types {
     return {};
 }
