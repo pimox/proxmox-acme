@@ -137,7 +137,7 @@ sub properties {
 sub options {
     return {
 	api => {},
-	data => {},
+	data => { optional => 1 },
 	nodes => { optional => 1 },
 	disable => { optional => 1 },
     };

@@ -617,7 +617,9 @@ setup() {
   plugin_conf_string=$4
   DEBUG=$5
 
-  _load_plugin_config
+  if [ -n "$plugin_conf_string" ]; then
+     _load_plugin_config
+  fi
 
   if ! . "$dns_plugin_path"; then
     _err "Load file $dns_plugin error."
@@ -644,7 +646,9 @@ teardown() {
   plugin_conf_string=$4
   DEBUG=$5
 
-  _load_plugin_config
+  if [ -n "$plugin_conf_string" ]; then
+     _load_plugin_config
+  fi
 
   if ! . "$dns_plugin_path"; then
     _err "Load file $dns_plugin error."
