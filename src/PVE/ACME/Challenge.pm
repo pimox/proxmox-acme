@@ -47,6 +47,26 @@ sub parse_config {
     return $cfg;
 }
 
+sub encode_value {
+    my ($self, $type, $key, $value) = @_;
+
+    if ($key eq 'data') {
+	$value = MIME::Base64::encode_base64url($value);
+    }
+
+    return $value;
+};
+
+sub decode_value {
+    my ($self, $type, $key, $value) = @_;
+
+    if ($key eq 'data') {
+	$value = MIME::Base64::decode_base64url($value);
+    }
+
+    return $value;
+};
+
 sub supported_challenge_types {
     return [];
 }

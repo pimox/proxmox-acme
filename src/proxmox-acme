@@ -583,21 +583,15 @@ _source_plugin_config() {
 
 # Proxmox implementation to inject the DNSAPI variables
 _load_plugin_config() {
-    tmp_str="${plugin_conf_string//[^,]}"
-    index="$(_math ${#tmp_str} + 1)"
-    while [ "$index" -gt "0" ]
-    do
-	field=$(_getfield $plugin_conf_string "$index" ",")
-	ADDR=(${field/=/ })
+    while IFS= read -r line; do
+	ADDR=(${line/=/ })
 	key="${ADDR[0]}"
 	value="${ADDR[1]}"
 
-	# decode base64 encoded values
-	value=$(echo $value | /usr/bin/openssl base64 -d -A)
-
 	# acme.sh uses eval insted of export
-	export "$key"="$value"
-	index="$(_math "$index" - 1)"
+	if [ -n "$key" ]; then
+	    export "$key"="$value"
+	fi
     done
 }
 
@@ -613,13 +607,11 @@ setup() {
   dns_plugin="dns_$1"
   dns_plugin_path="${DNS_PLUGIN_PATH}/${dns_plugin}.sh"
   fqdn="_acme-challenge.$2"
-  txtvalue=$3
+  DEBUG=$3
+  IFS= read -r txtvalue
   plugin_conf_string=$4
-  DEBUG=$5
 
-  if [ -n "$plugin_conf_string" ]; then
-     _load_plugin_config
-  fi
+  _load_plugin_config
 
   if ! . "$dns_plugin_path"; then
     _err "Load file $dns_plugin error."
@@ -642,13 +634,10 @@ teardown() {
   dns_plugin="dns_$1"
   dns_plugin_path="${DNS_PLUGIN_PATH}/${dns_plugin}.sh"
   fqdn="_acme-challenge.$2"
-  txtvalue=$3
-  plugin_conf_string=$4
-  DEBUG=$5
+  DEBUG=$3
+  IFS= read -r txtvalue
 
-  if [ -n "$plugin_conf_string" ]; then
-     _load_plugin_config
-  fi
+  _load_plugin_config
 
   if ! . "$dns_plugin_path"; then
     _err "Load file $dns_plugin error."

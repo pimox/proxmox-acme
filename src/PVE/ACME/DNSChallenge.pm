@@ -170,9 +170,10 @@ my $proxmox_acme_command = sub {
     } else {
 	push @$cmd, $domain;
     }
-    push @$cmd, $txtvalue, $plugin_conf_string;
+    my $input = "$txtvalue\n";
+    $input .= "$plugin_conf_string\n" if $plugin_conf_string;
 
-    PVE::Tools::run_command($cmd);
+    PVE::Tools::run_command($cmd, input => $input);
 
     $data->{url} = $challenge->{url};
 
