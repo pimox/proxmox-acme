@@ -160,7 +160,7 @@ my $proxmox_acme_command = sub {
 
     # for security reasons, we execute the command as nobody
     # we can't verify that the code of the DNSPlugins are harmless.
-    my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--"];
+    my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--reset-env", "--"];
 
     # The order of the parameters passed to proxmox-acme is important
     # proxmox-acme <setup|teardown> $plugin <$domain|$alias> $txtvalue [$plugin_conf_string]
