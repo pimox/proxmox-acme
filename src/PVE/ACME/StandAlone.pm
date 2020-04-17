@@ -38,11 +38,12 @@ sub get_subplugins {
 }
 
 sub setup {
-    my ($class, $data) = @_;
+    my ($self, $acme, $auth, $data) = @_;
 
     print "Setting up webserver\n";
 
-    my $key_auth = $data->{key_authorization};
+    my $challenge = $self->extract_challenge($auth->{challenges});
+    my $key_auth = $acme->key_authorization($challenge->{token});
 
     my $server = HTTP::Daemon->new(
 	LocalPort => 80,
@@ -52,11 +53,12 @@ sub setup {
     if ($pid) {
 	$data->{server} = $server;
 	$data->{pid} = $pid;
+	$data->{url} = $challenge->{url};
     } else {
 	while (my $c = $server->accept()) {
 	    while (my $r = $c->get_request()) {
 		if ($r->method() eq 'GET' and
-		    $r->uri->path eq "/.well-known/acme-challenge/$data->{token}") {
+		    $r->uri->path eq "/.well-known/acme-challenge/$challenge->{token}") {
 		    my $resp = HTTP::Response->new(200, 'OK', undef, $key_auth);
 		    $resp->request($r);
 		    $c->send_response($resp);
@@ -71,7 +73,7 @@ sub setup {
 }
 
 sub teardown {
-    my ($self, $data) = @_;
+    my ($self, $acme, $auth, $data) = @_;
 
     eval { $data->{server}->close() };
     kill('KILL', $data->{pid});

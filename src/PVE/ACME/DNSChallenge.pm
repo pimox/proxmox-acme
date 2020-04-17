@@ -143,11 +143,6 @@ sub options {
     };
 }
 
-my $outfunc = sub {
-    my $line = shift;
-    print "$line\n";
-};
-
 sub extract_challenge {
     my ($self, $challenge) = @_;
 
@@ -158,44 +153,53 @@ sub get_subplugins {
     return $api_name_list;
 }
 
-# The order of the parameters passed to proxmox-acme is important
-# proxmox-acme setup $plugin [$domain|$alias] $txtvalue $plugin_conf_string
-sub setup {
-    my ($self, $data) = @_;
+my $proxmox_acme_command = sub {
+    my ($self, $acme, $auth, $data, $action) = @_;
 
     die "No plugin data for DNSChallenge\n" if !defined($data->{plugin});
-    my $domain = $data->{plugin}->{alias} ? $data->{plugin}->{alias} : $data->{domain};
-    my $txtvalue = PVE::ACME::encode(sha256($data->{key_authorization}));
+
+    my $alias = $data->{alias};
+    my $domain = $auth->{identifier}->{value};
+
+    my $challenge = $self->extract_challenge($auth->{challenges});
+    my $key_auth = $acme->key_authorization($challenge->{token});
+
+    my $txtvalue = PVE::ACME::encode(sha256($key_auth));
     my $dnsplugin = $data->{plugin}->{api};
     my $plugin_conf_string = $data->{plugin}->{data};
 
     # for security reasons, we execute the command as nobody
     # we can't verify that the code of the DNSPlugins are harmless.
     my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--"];
-    push @$cmd, "/bin/bash", $ACME_PATH, "setup", $dnsplugin, $domain;
-    push @$cmd,	$txtvalue, $plugin_conf_string;
 
-    PVE::Tools::run_command($cmd, outfunc => $outfunc);
+    # The order of the parameters passed to proxmox-acme is important
+    # proxmox-acme <setup|teardown> $plugin <$domain|$alias> $txtvalue [$plugin_conf_string]
+    push @$cmd, "/bin/bash", $ACME_PATH, $action, $dnsplugin;
+    if ($alias) {
+	push @$cmd, $alias;
+    } else {
+	push @$cmd, $domain;
+    }
+    push @$cmd, $txtvalue, $plugin_conf_string;
+
+    PVE::Tools::run_command($cmd);
+
+    $data->{url} = $challenge->{url};
+
+    return $domain;
+};
+
+sub setup {
+    my ($self, $acme, $auth, $data) = @_;
+
+    my $domain = $proxmox_acme_command->($self, $acme, $auth, $data, 'setup');
     print "Add TXT record: _acme-challenge.$domain\n";
 }
 
-# The order of the parameters passed to proxmox-acme is important
-# proxmox-acme teardown $plugin [$domain|$alias] $txtvalue $plugin_conf_string
 sub teardown {
-    my ($self, $data) = @_;
+    my ($self, $acme, $auth, $data) = @_;
 
-    die "No plugin data for DNSChallenge\n" if !defined($data->{plugin});
-    my $domain = $data->{plugin}->{alias} ? $data->{plugin}->{alias} : $data->{domain};
-    my $txtvalue = PVE::ACME::encode(sha256($data->{key_authorization}));
-    my $dnsplugin = $data->{plugin}->{api};
-    my $plugin_conf_string = $data->{plugin}->{data};
-    
-    # for security reasons, we execute the command as nobody
-    # we can't verify that the code of the DNSPlugins are harmless.
-    my $cmd = ["setpriv", "--reuid", "nobody", "--regid", "nogroup", "--clear-groups", "--"];
-    push @$cmd, "/bin/bash", "$ACME_PATH", "teardown",  $dnsplugin, $domain ;
-    push @$cmd, $txtvalue, $plugin_conf_string;
-    PVE::Tools::run_command($cmd, outfunc => $outfunc);
+    my $domain = $proxmox_acme_command->($self, $acme, $auth, $data, 'teardown');
     print "Remove TXT record: _acme-challenge.$domain\n";
 }
 

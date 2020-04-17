@@ -70,14 +70,23 @@ sub get_subplugins {
     return [];
 }
 
+# acme => PVE::ACME instance
+# auth => authorization object returned by ACME server
+# $data => {
+#   plugin => plugin config data
+#   alias => optional domain alias
+# }
+# needs to set $data->{url} to URL of the challenge which has been set up
+# can set other $data keys needed by teardown sub
 sub setup {
-    my ($class, $acme, $authorization) = @_;
+    my ($self, $acme, $auth, $data) = @_;
 
     die "implement me\n";
 }
 
+# see setup
 sub teardown {
-    my ($self) = @_;
+    my ($self, $acme, $auth, $data) = @_;
 
     die "implement me\n";
 }
