@@ -11,7 +11,7 @@ use base qw(PVE::ACME::Challenge);
 my $ACME_PATH = '/usr/share/proxmox-acme/proxmox-acme';
 
 sub supported_challenge_types {
-    return { 'dns-01' => 1 };
+    return ["dns-01"];
 }
 
 sub type {
@@ -143,12 +143,6 @@ sub options {
     };
 }
 
-sub extract_challenge {
-    my ($self, $challenge) = @_;
-
-    return PVE::ACME::Challenge->extract_challenge($challenge, 'dns-01');
-}
-    
 sub get_subplugins {
     return $api_name_list;
 }

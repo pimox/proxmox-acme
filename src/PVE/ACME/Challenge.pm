@@ -48,22 +48,26 @@ sub parse_config {
 }
 
 sub supported_challenge_types {
-    return {};
+    return [];
 }
 
 sub extract_challenge {
-    my ($self, $challenges, $c_type) = @_;
+    my ($self, $challenges) = @_;
 
     die "no challenges defined\n" if !$challenges;
-    die "no challenge type is defined \n" if !$c_type;
 
-    my $tmp_challenges = [ grep {$_->{type} eq $c_type} @$challenges ];
-    die "no $c_type challenge defined in authorization\n"
-	if ! scalar $tmp_challenges;
+    my $supported_types = $self->supported_challenge_types();
 
-    my $challenge = $tmp_challenges->[0];
+    # preference returned by plugin!
+    foreach my $supported_type (@$supported_types) {
+	foreach my $challenge (@$challenges) {
+	    next if $challenge->{type} ne $supported_type;
 
-    return $challenge;
+	    return $challenge;
+	}
+    }
+
+    die "plugin does not support any of the requested challenge types\n";
 }
 
 sub get_subplugins {
