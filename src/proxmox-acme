@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 VER=0.9
 
@@ -516,7 +516,7 @@ _err() {
 
 # key
 _readaccountconf() {
-  echo "$1"
+  echo "${!1}"
 }
 
 # key
