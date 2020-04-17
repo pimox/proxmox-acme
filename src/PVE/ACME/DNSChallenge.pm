@@ -143,10 +143,6 @@ sub options {
     };
 }
 
-sub get_subplugins {
-    return $api_name_list;
-}
-
 my $proxmox_acme_command = sub {
     my ($self, $acme, $auth, $data, $action) = @_;
 

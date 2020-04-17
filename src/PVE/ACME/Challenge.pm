@@ -70,10 +70,6 @@ sub extract_challenge {
     die "plugin does not support any of the requested challenge types\n";
 }
 
-sub get_subplugins {
-    return [];
-}
-
 # acme => PVE::ACME instance
 # auth => authorization object returned by ACME server
 # $data => {

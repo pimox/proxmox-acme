@@ -27,10 +27,6 @@ sub options {
     };
 }
 
-sub get_subplugins {
-    return [];
-}
-
 sub setup {
     my ($self, $acme, $auth, $data) = @_;
 
