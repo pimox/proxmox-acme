@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=0.9
+VER=1.0
 
 PROJECT_NAME="ProxmoxACME"
 

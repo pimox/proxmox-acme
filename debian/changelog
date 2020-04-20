@@ -1,5 +1,5 @@
-libproxmox-acme-perl (1.0.0-1+pvetest1) unstable; urgency=medium
+libproxmox-acme-perl (1.0.0-1) pmg pve; urgency=medium
 
   * Initial 1.0.0 package
 
- -- Proxmox Support Team <support@proxmox.com>  Wed, 06 Nov 2019 09:14:59 +0200
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 20 Apr 2020 10:00:00 +0200
