@@ -13,8 +13,9 @@ Description: easy and small shell script to automatically issue
  and renew the free certificates from Let's Encrypt.
 Depends: coreutils (>= 8.30-1),
          curl (>= 7.64.0-1),
-         libpve-common-perl,
+         libpve-common-perl (>= 6~),
          sed (>= 4.7-1),
+         ${perl:Depends},
 Breaks: libpve-common-perl (<< 6.0-20),
 Replaces: libpve-common-perl (<< 6.0-20),
 Recommends: idn,
