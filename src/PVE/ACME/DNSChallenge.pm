@@ -18,7 +18,7 @@ sub type {
     return 'dns';
 }
 
-my $api_name_list = [
+my $plugin_names = [
     'acmedns',
     'acmeproxy',
     'active24',
@@ -125,7 +125,7 @@ sub properties {
 	api => {
 	    description => "API plugin name",
 	    type => 'string',
-	    enum => $api_name_list,
+	    enum => $plugin_names,
 	},
 	data => {
 	    type => 'string',
