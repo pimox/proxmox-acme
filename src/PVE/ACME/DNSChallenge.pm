@@ -119,6 +119,9 @@ my $plugin_names = [
     'zone',
     'zonomi',
 ];
+sub get_supported_plugins {
+    return $plugin_names;
+}
 
 sub properties {
     return {
