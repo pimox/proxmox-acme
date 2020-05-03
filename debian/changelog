@@ -1,4 +1,4 @@
-libproxmox-acme-perl (1.0.0-1) pmg pve; urgency=medium
+libproxmox-acme-perl (1.0.0) pmg pve; urgency=medium
 
   * Initial 1.0.0 package
 

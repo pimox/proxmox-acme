@@ -3,19 +3,19 @@ Section: admin
 Priority: optional
 Maintainer: Proxmox Support Team <support@proxmox.com>
 Build-Depends: debhelper (>= 10),
-               dh-systemd,
-Standards-Version: 1.0.0
+Standards-Version: 4.3.0
 Homepage: https://www.proxmox.com
 
 Package: libproxmox-acme-perl
 Architecture: all
-Description: easy and small shell script to automatically issue
- and renew the free certificates from Let's Encrypt.
 Depends: coreutils (>= 8.30-1),
          curl (>= 7.64.0-1),
          libpve-common-perl (>= 6~),
          sed (>= 4.7-1),
          ${perl:Depends},
+         ${misc:Depends},
 Breaks: libpve-common-perl (<< 6.0-20),
 Replaces: libpve-common-perl (<< 6.0-20),
 Recommends: idn,
+Description: easy and small shell script to automatically issue
+ and renew the free certificates from Let's Encrypt.

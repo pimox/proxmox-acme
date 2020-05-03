@@ -40,7 +40,7 @@ dinstall: ${DEB}
 
 .PHONY: clean
 clean:
-	rm -rf ${BUILDDIR} ${BUILDDIR}.tmp *.deb *.buildinfo *.changes *.dsc *.tar.gz
+	rm -rf ${BUILDDIR} ${BUILDDIR}.tmp *.deb *.buildinfo *.changes *.dsc *.tar.?z
 
 .PHONY: upload
 upload: ${DEB}
