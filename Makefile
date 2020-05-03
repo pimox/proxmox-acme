@@ -8,26 +8,26 @@ GITVERSION:=$(shell git rev-parse HEAD)
 DEB=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}_all.deb
 DSC=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}.dsc
 
-DNSAPI="acme.sh/dnsapi"
+ACME_SUBMODULE="src/acme.sh"
 
 all: $(DEB)
 
 .PHONY: submodule
 submodule:
-	test -d $(DNSAPI) || git submodule update --init --recursive
+	test -d ${ACME_SUBMODULE}/README.md || git submodule update --init --recursive
 
-$(BUILDDIR): src debian submodule
-	rm -rf $(BUILDDIR)
-	rsync -a src/ debian $(BUILDDIR)
-	rsync -a $(DNSAPI) $(BUILDDIR)
-	# remove if repository exists
-	# echo "git clone git://git.proxmox.com/git/proxmox-acme\\ngit checkout $(GITVERSION)" > $(BUILDDIR)/debian/SOURCE
+${BUILDDIR}: src debian submodule
+	rm -rf ${BUILDDIR}.tmp
+	cp -a src ${BUILDDIR}.tmp
+	cp -a debian ${BUILDDIR}.tmp/
+	echo "git clone git://git.proxmox.com/git/proxmox-acme\\ngit checkout ${GITVERSION}" > ${BUILDDIR}.tmp/debian/SOURCE
+	mv ${BUILDDIR}.tmp ${BUILDDIR}
 
 .PHONY: deb
-deb: $(DEB)
-$(DEB): $(BUILDDIR)
-	cd $(BUILDDIR); dpkg-buildpackage -b -us -uc
-	lintian $(DEB)
+deb: ${DEB}
+${DEB}: ${BUILDDIR}
+	cd ${BUILDDIR}; dpkg-buildpackage -b -us -uc
+	lintian ${DEB}
 
 .PHONY: dsc
 dsc: ${DSC}
@@ -35,12 +35,12 @@ ${DSC}: ${BUILDDIR}
 	cd ${BUILDDIR}; dpkg-buildpackage -S -us -uc -d
 	lintian ${DSC}
 
-dinstall: $(DEB)
-	dpkg -i $(DEB)
+dinstall: ${DEB}
+	dpkg -i ${DEB}
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILDDIR) *.deb *.buildinfo *.changes *.dsc *.tar.gz
+	rm -rf ${BUILDDIR} ${BUILDDIR}.tmp *.deb *.buildinfo *.changes *.dsc *.tar.gz
 
 .PHONY: upload
 upload: ${DEB}
