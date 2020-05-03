@@ -134,6 +134,17 @@ sub properties {
 	    type => 'string',
 	    description => 'DNS plugin data.',
 	},
+	'validation-delay' => {
+	    type => 'integer',
+	    description => 'Extra delay in seconds to wait before requesting validation.'
+	        .' Allows to cope with a long TTL of DNS records.',
+	    # low default, but our bet is that the acme-challenge domain isn't
+	    # cached at all, so it hopefully shouldn't run into TTL issues
+	    default => 30,
+	    optional => 1,
+	    minimum => 0,
+	    maximum => 2 * 24 * 60 * 60,
+	}
     };
 }
 
@@ -143,6 +154,7 @@ sub options {
 	data => { optional => 1 },
 	nodes => { optional => 1 },
 	disable => { optional => 1 },
+	'validation-delay' => { optional => 1 },
     };
 }
 
@@ -188,6 +200,15 @@ sub setup {
 
     my $domain = $proxmox_acme_command->($self, $acme, $auth, $data, 'setup');
     print "Add TXT record: _acme-challenge.$domain\n";
+
+    # FIXME: probe ourself for propagation of TXT record, while not 100%
+    # failsafe it's good enough of a heuristic to do away with fixed sleep
+    # intervalls - original acme.sh employs that heuristic too.
+    my $delay = $data->{'validation-delay'} // 30;
+    if ($delay > 0) {
+	print "Sleeping $delay seconds to wait for TXT record propagation\n";
+	sleep($delay); # don't care for EINTR
+    }
 }
 
 sub teardown {
