@@ -13,6 +13,7 @@ my $defaultData = {
 	id => {
 	    description => "ACME Plugin ID name",
 	    type => 'string',
+	    format => 'pve-configid',
 	},
 	type => {
 	    description => "ACME challenge type.",
