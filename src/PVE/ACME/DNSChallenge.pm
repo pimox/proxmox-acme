@@ -102,6 +102,8 @@ my $plugins = {
     'ovh' => {
 	'OVH_END_POINT' => {
 	    description => "The OVH endpoint",
+	    default => "ovh-eu",
+	    optional => 1,
 	    type => 'string',
 	},
 	'OVH_AK' => {
@@ -110,6 +112,11 @@ my $plugins = {
 	},
 	'OVH_AS' => {
 	    description => "The application secret.",
+	    type => 'string',
+	},
+	'OVH_CK' => {
+	    description => "The consumer key.",
+	    optional => 1,
 	    type => 'string',
 	},
     },
