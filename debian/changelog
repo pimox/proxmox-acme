@@ -1,3 +1,13 @@
+libproxmox-acme-perl (1.0.2) pmg pve; urgency=medium
+
+  * add basic schema for DNS API plugins
+
+  * plugin id: limit to 'pve-configid' format
+
+  * add note that the data has to be base64 encoded
+
+ -- Proxmox Support Team <support@proxmox.com>  Tue, 05 May 2020 19:19:43 +0200
+
 libproxmox-acme-perl (1.0.1) pmg pve; urgency=medium
 
   * add 'validation-delay' property to DNS challenge plugin
