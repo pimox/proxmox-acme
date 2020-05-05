@@ -100,39 +100,45 @@ my $plugins = {
     'openprovider' => {},
     'opnsense' => {},
     'ovh' => {
-	'OVH_END_POINT' => {
-	    description => "The OVH endpoint",
-	    default => "ovh-eu",
-	    optional => 1,
-	    type => 'string',
-	},
-	'OVH_AK' => {
-	    description => "The application key.",
-	    type => 'string',
-	},
-	'OVH_AS' => {
-	    description => "The application secret.",
-	    type => 'string',
-	},
-	'OVH_CK' => {
-	    description => "The consumer key.",
-	    optional => 1,
-	    type => 'string',
+	name => 'OVH',
+	fields => {
+	    'OVH_END_POINT' => {
+		description => "The OVH endpoint",
+		default => "ovh-eu",
+		optional => 1,
+		type => 'string',
+	    },
+	    'OVH_AK' => {
+		description => "The application key.",
+		type => 'string',
+	    },
+	    'OVH_AS' => {
+		description => "The application secret.",
+		type => 'string',
+	    },
+	    'OVH_CK' => {
+		description => "The consumer key.",
+		optional => 1,
+		type => 'string',
+	    },
 	},
     },
     'pdns' => {
-	'PDNS_Url' => {
-	    description => "The PowerDNS API endpoint.",
-	    type => 'string',
-	},
-	'PDNS_ServerId'=> {
-	    type => 'string',
-	},
-	'PDNS_Token'=> {
-	    type => 'string',
-	},
-	'PDNS_Ttl'=> {
-	    type => 'integer',
+	name => 'PowerDNS server',
+	fields => {
+	    'PDNS_Url' => {
+		description => "The PowerDNS API endpoint.",
+		type => 'string',
+	    },
+	    'PDNS_ServerId'=> {
+		type => 'string',
+	    },
+	    'PDNS_Token'=> {
+		type => 'string',
+	    },
+	    'PDNS_Ttl'=> {
+		type => 'integer',
+	    },
 	},
     },
     'pleskxml' => {},
