@@ -161,7 +161,7 @@ sub properties {
 	},
 	data => {
 	    type => 'string',
-	    description => 'DNS plugin data.',
+	    description => 'DNS plugin data. (base64 encoded)',
 	},
 	'validation-delay' => {
 	    type => 'integer',
