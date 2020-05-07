@@ -1,3 +1,11 @@
+libproxmox-acme-perl (1.0.3) pmg pve; urgency=medium
+
+  * trigger activate-noawait pve-api-updates
+
+  * dns challenge: provide schema for more providers
+
+ -- Proxmox Support Team <support@proxmox.com>  Thu, 07 May 2020 21:49:51 +0200
+
 libproxmox-acme-perl (1.0.2) pmg pve; urgency=medium
 
   * add basic schema for DNS API plugins
