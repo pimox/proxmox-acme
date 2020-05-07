@@ -18,17 +18,102 @@ sub type {
     return 'dns';
 }
 
-# describe the data schema of the supported plugins
+# describe the data schema of the supported plugins, e.g.:
+#    'dnsprovider' => {
+#	name => 'Full name of Plugin',
+#	fields => {
+#	    'FOO_API_KEY' => {
+#		description => "The API key",
+#		default => "none",
+#		optional => 1,
+#		type => 'string',
+#	    },
+#	    # ...
+#	},
+#    },
 my $plugins = {
     'acmedns' => {},
     'acmeproxy' => {},
-    'active24' => {},
-    'ad' => {},
-    'ali' => {},
+    'active24' => {
+	name => 'Active24',
+	fields => {
+	    'ACTIVE24_Token' => {
+		description => "The API key",
+		type => 'string',
+	    },
+	},
+    },
+    'ad' => {
+	name => 'Alwaysdata',
+	fields => {
+	    'AD_API_KEY' => {
+		description => "The API key",
+		type => 'string',
+	    },
+	},
+    },
+    'ali' => {
+	name => 'Alibaba Cloud DNS',
+	fields => {
+	    'Ali_API' => {
+		description => 'The API endpoint',
+		default => "https://alidns.aliyuncs.com/",
+		type => 'string',
+		optional => 1,
+	    },
+	    'Ali_Key' => {
+		description => 'The API Key',
+		type => 'string',
+	    },
+	    'Ali_Secret' => {
+		description => 'The API Secret',
+		type => 'string',
+	    },
+	},
+    },
     'autodns' => {},
-    'aws' => {},
+    'aws' => {
+	name => 'Amazon Route53 (AWS)',
+	fields => {
+	    'AWS_ACCESS_KEY_ID' => {
+		name => 'ACCESS_KEY_ID',
+		description => 'The AWS access-key ID',
+		type => 'string',
+	    },
+	    'AWS_SECRET_ACCESS_KEY' => {
+		name => 'SECRET_ACCESS_KEY',
+		description => 'The AWS access-key secret',
+		type => 'string',
+	    },
+	},
+    },
     'azure' => {},
-    'cf' => {},
+    'cf' => {
+	name => 'Cloudflare Managed DNS',
+	description => 'Either provide global account key and email, or CF API token and Account ID.',
+	fields => {
+	    'CF_Key' => {
+		description => 'The Cloudflare Global API Key',
+		type => 'string',
+	    },
+	    'CF_Email' => {
+		description => 'The Cloudflare Account EMail-Address',
+		type => 'string',
+	    },
+	    'CF_Token' => {
+		description => 'The new Cloudflare API Token',
+		type => 'string',
+	    },
+	    'CF_Account_ID' => {
+		description => 'The new Cloudflare API Account ID',
+		type => 'string',
+	    },
+	    'CF_Zone_ID' => {
+		description => 'For Zone restricted API Token',
+		type => 'string',
+	    },
+	},
+    },
     'clouddns' => {},
     'cloudns' => {},
     'cn' => {},
@@ -58,7 +143,19 @@ my $plugins = {
     'freedns' => {},
     'gandi_livedns' => {},
     'gcloud' => {},
-    'gd' => {},
+    'gd' => {
+	name => 'GoDaddy',
+	fields => {
+	    'GD_Key' => {
+		description => 'The GoDaddy API Key',
+		type => 'string',
+	    },
+	    'GD_Secret' => {
+		description => 'The GoDaddy API Secret',
+		type => 'string',
+	    },
+	},
+    },
     'gdnsdk' => {},
     'he' => {},
     'hexonet' => {},
