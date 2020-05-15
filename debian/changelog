@@ -1,3 +1,11 @@
+libproxmox-acme-perl (1.0.4) pmg pve; urgency=medium
+
+  * update acme.sh dns plugins to 2.8.6
+
+  * describe schema of DigitalOcean and add df (dyndnsfree.de) provider
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 15 May 2020 20:06:49 +0200
+
 libproxmox-acme-perl (1.0.3) pmg pve; urgency=medium
 
   * trigger activate-noawait pve-api-updates
