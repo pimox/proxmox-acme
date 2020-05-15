@@ -124,6 +124,7 @@ my $plugins = {
     'da' => {},
     'ddnss' => {},
     'desec' => {},
+    'df' => {},
     'dgon' => {},
     'dnsimple' => {},
     'do' => {},
