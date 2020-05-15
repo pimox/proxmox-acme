@@ -125,7 +125,15 @@ my $plugins = {
     'ddnss' => {},
     'desec' => {},
     'df' => {},
-    'dgon' => {},
+    'dgon' => {
+	name => 'DigitalOcean DNS',
+	fields => {
+	    'DO_API_KEY' => {
+		description => 'The DigitalOcean API Key',
+		type => 'string',
+	    },
+	},
+    },
     'dnsimple' => {},
     'do' => {},
     'doapi' => {},
