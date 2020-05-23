@@ -171,7 +171,19 @@ my $plugins = {
     'hostingde' => {},
     'infoblox' => {},
     'internetbs' => {},
-    'inwx' => {},
+    'inwx' => {
+	name => 'INWX',
+	fields => {
+	    'INWX_User' => {
+		description => 'The INWX username',
+		type => 'string',
+	    },
+	    'INWX_Password' => {
+		description => 'The INWX password',
+		type => 'string',
+	    },
+	},
+    },
     'ispconfig' => {},
     'jd' => {},
     'kas' => {},
