@@ -1,3 +1,11 @@
+libproxmox-acme-perl (1.0.5) pmg pve; urgency=medium
+
+  * dns challenge: add 'INWX' acme.sh schema
+
+  * fix #2732: use actual plugin config data
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 4 Sep 2020 14:01:13 +0200
+
 libproxmox-acme-perl (1.0.4) pmg pve; urgency=medium
 
   * update acme.sh dns plugins to 2.8.6
