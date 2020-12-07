@@ -1,3 +1,9 @@
+libproxmox-acme-perl (1.0.6) pmg pve; urgency=medium
+
+  * update acme.sh dns plugins to 2.8.8
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 07 Dec 2020 11:59:14 +0100
+
 libproxmox-acme-perl (1.0.5) pmg pve; urgency=medium
 
   * dns challenge: add 'INWX' acme.sh schema
