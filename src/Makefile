@@ -119,6 +119,10 @@ install:
 	install -d -m 0755 ${DESTDIR}${PERLDIR}/PVE/ACME
 	for f in ${LIB_SOURCES}; do install -D -m 0644 PVE/$$f ${DESTDIR}${PERLDIR}/PVE/$$f; done
 
+.PHONY: test
+test:
+	$(MAKE) -C test test
+
 .PHONY: clean
 clean:
 	rm -rf *~
