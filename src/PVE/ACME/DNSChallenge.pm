@@ -33,7 +33,27 @@ sub type {
 #    },
 my $plugins = {
     '1984hosting' => {},
-    'acmedns' => {},
+    'acmedns' => {
+	name => 'acme-dns',
+	fields => {
+	    'ACMEDNS_UPDATE_URL' => {
+		description => 'The API update endpoint',
+		type => 'string',
+	    },
+	    'ACMEDNS_USERNAME' => {
+		description => 'The acme-dns user',
+		type => 'string',
+	    },
+	    'ACMEDNS_PASSWORD' => {
+		description => 'The acme-dns password',
+		type => 'string',
+	    },
+	    'ACMEDNS_SUBDOMAIN' => {
+		description => 'The subdomain you got from acme-dns registration',
+		type => 'string',
+	    },
+	},
+    },
     'acmeproxy' => {},
     'active24' => {
 	name => 'Active24',
@@ -194,7 +214,19 @@ my $plugins = {
     'ispconfig' => {},
     'jd' => {},
     'joker' => {},
-    'kappernet' => {},
+    'kappernet' => {
+	name => 'kapper.net',
+	fields => {
+	    'KAPPERNETDNS_Key' => {
+		description => 'Your kapper.net API key',
+		type => 'string',
+	    },
+	    'KAPPERNETDNS_Secret' => {
+		description => 'Your kapper.net API secret',
+		type => 'string',
+	    },
+	},
+    },
     'kas' => {},
     'kinghost' => {},
     'knot' => {},
