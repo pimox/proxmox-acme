@@ -3,11 +3,14 @@ ACMEDIR=${PREFIX}/share/proxmox-acme/
 PERLDIR=${PREFIX}/share/perl5
 
 ACME_SOURCES = \
+	dnsapi/dns_1984hosting.sh \
 	dnsapi/dns_acmedns.sh \
 	dnsapi/dns_acmeproxy.sh \
 	dnsapi/dns_active24.sh \
 	dnsapi/dns_ad.sh \
 	dnsapi/dns_ali.sh \
+	dnsapi/dns_anx.sh \
+	dnsapi/dns_arvan.sh \
 	dnsapi/dns_autodns.sh \
 	dnsapi/dns_aws.sh \
 	dnsapi/dns_azure.sh \
@@ -22,11 +25,12 @@ ACME_SOURCES = \
 	dnsapi/dns_da.sh \
 	dnsapi/dns_ddnss.sh \
 	dnsapi/dns_desec.sh \
+	dnsapi/dns_df.sh \
 	dnsapi/dns_dgon.sh \
 	dnsapi/dns_dnsimple.sh \
 	dnsapi/dns_do.sh \
 	dnsapi/dns_doapi.sh \
-	dnsapi/dns_domen.sh \op.sh \
+	dnsapi/dns_domeneshop.sh \
 	dnsapi/dns_dp.sh \
 	dnsapi/dns_dpi.sh \
 	dnsapi/dns_dreamhost.sh \
@@ -36,6 +40,7 @@ ACME_SOURCES = \
 	dnsapi/dns_dynu.sh \
 	dnsapi/dns_dynv6.sh \
 	dnsapi/dns_easydns.sh \
+	dnsapi/dns_edgedns.sh \
 	dnsapi/dns_euserv.sh \
 	dnsapi/dns_exoscale.sh \
 	dnsapi/dns_freedns.sh \
@@ -44,13 +49,18 @@ ACME_SOURCES = \
 	dnsapi/dns_gd.sh \
 	dnsapi/dns_gdnsdk.sh \
 	dnsapi/dns_he.sh \
+	dnsapi/dns_hetzner.sh \
 	dnsapi/dns_hexonet.sh \
 	dnsapi/dns_hostingde.sh \
+	dnsapi/dns_huaweicloud.sh \
 	dnsapi/dns_infoblox.sh \
+	dnsapi/dns_infomaniak.sh \
 	dnsapi/dns_internetbs.sh \
 	dnsapi/dns_inwx.sh \
 	dnsapi/dns_ispconfig.sh \
 	dnsapi/dns_jd.sh \
+	dnsapi/dns_joker.sh \
+	dnsapi/dns_kappernet.sh \
 	dnsapi/dns_kas.sh \
 	dnsapi/dns_kinghost.sh \
 	dnsapi/dns_knot.sh \
@@ -73,7 +83,10 @@ ACME_SOURCES = \
 	dnsapi/dns_nederhost.sh \
 	dnsapi/dns_neodigit.sh \
 	dnsapi/dns_netcup.sh \
+	dnsapi/dns_netlify.sh \
 	dnsapi/dns_nic.sh \
+	dnsapi/dns_njalla.sh \
+	dnsapi/dns_nm.sh \
 	dnsapi/dns_nsd.sh \
 	dnsapi/dns_nsone.sh \
 	dnsapi/dns_nsupdate.sh \
@@ -81,6 +94,7 @@ ACME_SOURCES = \
 	dnsapi/dns_one.sh \
 	dnsapi/dns_online.sh \
 	dnsapi/dns_openprovider.sh \
+	dnsapi/dns_openstack.sh \
 	dnsapi/dns_opnsense.sh \
 	dnsapi/dns_ovh.sh \
 	dnsapi/dns_pdns.sh \
@@ -93,11 +107,13 @@ ACME_SOURCES = \
 	dnsapi/dns_selectel.sh \
 	dnsapi/dns_servercow.sh \
 	dnsapi/dns_tele3.sh \
+	dnsapi/dns_transip.sh \
 	dnsapi/dns_ultra.sh \
 	dnsapi/dns_unoeuro.sh \
 	dnsapi/dns_variomedia.sh \
 	dnsapi/dns_vscale.sh \
 	dnsapi/dns_vultr.sh \
+	dnsapi/dns_world4you.sh \
 	dnsapi/dns_yandex.sh \
 	dnsapi/dns_zilore.sh \
 	dnsapi/dns_zone.sh \
