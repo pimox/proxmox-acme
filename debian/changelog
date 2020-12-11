@@ -1,3 +1,9 @@
+libproxmox-acme-perl (1.0.7) pmg pve; urgency=medium
+
+  * add missing DNS plugins to schema
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 11 Dec 2020 18:55:29 +0100
+
 libproxmox-acme-perl (1.0.6) pmg pve; urgency=medium
 
   * update acme.sh dns plugins to 2.8.8
