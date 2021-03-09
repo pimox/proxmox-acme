@@ -6,6 +6,8 @@ use warnings;
 use Digest::SHA qw(sha256);
 use PVE::Tools;
 
+use PVE::ACME;
+
 use base qw(PVE::ACME::Challenge);
 
 my $ACME_PATH = '/usr/share/proxmox-acme/proxmox-acme';
