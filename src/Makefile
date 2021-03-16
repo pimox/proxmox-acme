@@ -57,6 +57,7 @@ ACME_SOURCES = \
 	dnsapi/dns_infomaniak.sh \
 	dnsapi/dns_internetbs.sh \
 	dnsapi/dns_inwx.sh \
+	dnsapi/dns_ionos.sh \
 	dnsapi/dns_ispconfig.sh \
 	dnsapi/dns_jd.sh \
 	dnsapi/dns_joker.sh \
@@ -100,12 +101,15 @@ ACME_SOURCES = \
 	dnsapi/dns_pdns.sh \
 	dnsapi/dns_pleskxml.sh \
 	dnsapi/dns_pointhq.sh \
+	dnsapi/dns_rackcorp.sh \
 	dnsapi/dns_rackspace.sh \
 	dnsapi/dns_rcode0.sh \
 	dnsapi/dns_regru.sh \
+	dnsapi/dns_scaleway.sh \
 	dnsapi/dns_schlundtech.sh \
 	dnsapi/dns_selectel.sh \
 	dnsapi/dns_servercow.sh \
+	dnsapi/dns_simply.sh \
 	dnsapi/dns_tele3.sh \
 	dnsapi/dns_transip.sh \
 	dnsapi/dns_ultra.sh \
