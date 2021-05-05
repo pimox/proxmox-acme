@@ -11,6 +11,7 @@ ACME_SOURCES = \
 	dnsapi/dns_ali.sh \
 	dnsapi/dns_anx.sh \
 	dnsapi/dns_arvan.sh \
+	dnsapi/dns_aurora.sh \
 	dnsapi/dns_autodns.sh \
 	dnsapi/dns_aws.sh \
 	dnsapi/dns_azure.sh \
@@ -101,6 +102,7 @@ ACME_SOURCES = \
 	dnsapi/dns_pdns.sh \
 	dnsapi/dns_pleskxml.sh \
 	dnsapi/dns_pointhq.sh \
+	dnsapi/dns_porkbun.sh \
 	dnsapi/dns_rackcorp.sh \
 	dnsapi/dns_rackspace.sh \
 	dnsapi/dns_rcode0.sh \
@@ -117,6 +119,7 @@ ACME_SOURCES = \
 	dnsapi/dns_variomedia.sh \
 	dnsapi/dns_vscale.sh \
 	dnsapi/dns_vultr.sh \
+	dnsapi/dns_websupport.sh \
 	dnsapi/dns_world4you.sh \
 	dnsapi/dns_yandex.sh \
 	dnsapi/dns_zilore.sh \
