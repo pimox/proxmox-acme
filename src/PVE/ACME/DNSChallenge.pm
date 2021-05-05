@@ -96,6 +96,19 @@ my $plugins = {
     },
     'anx' => {},
     'arvan' => {},
+    'aurora' => {
+	name => 'AuroraDNS',
+	fields => {
+	    'AURORA_Key' => {
+		description => 'The API Key',
+		type => 'string',
+	    },
+	    'AURORA_Secret' => {
+		description => 'The API Secret',
+		type => 'string',
+	    },
+	},
+    },
     'autodns' => {},
     'aws' => {
 	name => 'Amazon Route53 (AWS)',
@@ -309,6 +322,19 @@ my $plugins = {
     },
     'pleskxml' => {},
     'pointhq' => {},
+    'porkbun' => {
+	name => 'Porkbun',
+	fields => {
+	    'PORKBUN_API_KEY' => {
+		description => 'The API Key',
+		type => 'string',
+	    },
+	    'PORKBUN_SECRET_API_KEY' => {
+		description => 'The API Secret',
+		type => 'string',
+	    },
+	},
+    },
     'rackcorp' => {},
     'rackspace' => {},
     'rcode0' => {},
@@ -326,6 +352,7 @@ my $plugins = {
     'vscale' => {},
     'vultr' => {},
     'world4you' => {},
+    'websupport' => {},
     'yandex' => {},
     'zilore' => {},
     'zone' => {},
