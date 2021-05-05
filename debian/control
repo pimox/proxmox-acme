@@ -1,4 +1,4 @@
-Source: libproxmox-acme-perl
+Source: libproxmox-acme
 Section: admin
 Priority: optional
 Maintainer: Proxmox Support Team <support@proxmox.com>
@@ -8,14 +8,23 @@ Homepage: https://www.proxmox.com
 
 Package: libproxmox-acme-perl
 Architecture: all
-Depends: coreutils (>= 8.30-1),
-         curl (>= 7.64.0-1),
-         libpve-common-perl (>= 6~),
-         sed (>= 4.7-1),
+Depends: libpve-common-perl (>= 6~),
+         libproxmox-acme-plugins,
          ${perl:Depends},
          ${misc:Depends},
 Breaks: libpve-common-perl (<< 6.0-20),
 Replaces: libpve-common-perl (<< 6.0-20),
+Description: easy and small shell script to automatically issue
+ and renew the free certificates from Let's Encrypt.
+
+Package: libproxmox-acme-plugins
+Architecture: all
+Depends: coreutils (>= 8.30-1),
+         curl (>= 7.64.0-1),
+         sed (>= 4.7-1),
+         ${misc:Depends},
+Breaks: libproxmox-acme-perl (<< 1.1.0),
+Replaces: libproxmox-acme-perl (<< 1.1.0),
 Recommends: idn,
 Description: easy and small shell script to automatically issue
  and renew the free certificates from Let's Encrypt.

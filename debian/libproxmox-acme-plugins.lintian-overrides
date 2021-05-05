@@ -1,0 +1,1 @@
+libproxmox-acme-plugins: script-not-executable usr/share/proxmox-acme/dnsapi/*

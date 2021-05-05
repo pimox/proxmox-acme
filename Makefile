@@ -1,12 +1,15 @@
 include /usr/share/dpkg/pkg-info.mk
 
-PACKAGE=libproxmox-acme-perl
+SRC=libproxmox-acme
 
-BUILDDIR ?= ${PACKAGE}-${DEB_VERSION_UPSTREAM}
+BUILDDIR ?= ${SRC}-${DEB_VERSION_UPSTREAM}
 GITVERSION:=$(shell git rev-parse HEAD)
 
-DEB=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}_all.deb
-DSC=${PACKAGE}_${DEB_VERSION_UPSTREAM_REVISION}.dsc
+DEB_PERL=libproxmox-acme-perl_${DEB_VERSION_UPSTREAM_REVISION}_all.deb
+DEB_ACME_PLUGS=libproxmox-acme-plugins_${DEB_VERSION_UPSTREAM_REVISION}_all.deb
+DEBS=${DEB_PERL} ${DEB_ACME_PLUGS}
+
+DSC=${SRC}_${DEB_VERSION_UPSTREAM_REVISION}.dsc
 
 ACME_SUBMODULE="src/acme.sh"
 
@@ -24,10 +27,10 @@ ${BUILDDIR}: src debian submodule
 	mv ${BUILDDIR}.tmp ${BUILDDIR}
 
 .PHONY: deb
-deb: ${DEB}
-${DEB}: ${BUILDDIR}
+deb: ${DEBS}
+${DEBS}: ${BUILDDIR}
 	cd ${BUILDDIR}; dpkg-buildpackage -b -us -uc
-	lintian ${DEB}
+	lintian ${DEBS}
 
 .PHONY: dsc
 dsc: ${DSC}
@@ -35,13 +38,14 @@ ${DSC}: ${BUILDDIR}
 	cd ${BUILDDIR}; dpkg-buildpackage -S -us -uc -d
 	lintian ${DSC}
 
-dinstall: ${DEB}
-	dpkg -i ${DEB}
+dinstall: ${DEBS}
+	dpkg -i ${DEBS}
 
 .PHONY: clean
 clean:
-	rm -rf ${PACKAGE}-*/ ${BUILDDIR}.tmp *.deb *.buildinfo *.changes *.dsc *.tar.?z
+	rm -rf ${SRC}-*/ ${BUILDDIR}.tmp *.deb *.buildinfo *.changes *.dsc *.tar.?z
 
 .PHONY: upload
-upload: ${DEB}
-	tar cf - ${DEB}|ssh -X repoman@repo.proxmox.com -- upload --product pve,pmg --dist buster --arch ${DEB_BUILD_ARCH}
+upload: ${DEBS}
+	tar cf - ${DEBS}|ssh -X repoman@repo.proxmox.com -- upload --product pve,pmg --dist buster --arch ${DEB_BUILD_ARCH}
+	tar cf - ${DEB_ACME_PLUGS}|ssh -X repoman@repo.proxmox.com -- upload --product pbs --dist buster --arch ${DEB_BUILD_ARCH}
