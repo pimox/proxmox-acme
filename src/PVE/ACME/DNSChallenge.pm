@@ -351,7 +351,19 @@ my $plugins = {
     'variomedia' => {},
     'vscale' => {},
     'vultr' => {},
-    'world4you' => {},
+    'world4you' => {
+	name => 'World4You',
+	fields => {
+	    'WORLD4YOU_USERNAME' => {
+		description => "The World4You customer id or package id",
+		type => 'string',
+	    },
+	    'WORLD4YOU_PASSWORD' => {
+		description => "The World4You password",
+		type => 'string',
+	    },
+	},
+    },
     'websupport' => {},
     'yandex' => {},
     'zilore' => {},
