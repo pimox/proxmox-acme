@@ -1,0 +1,337 @@
+{
+   "1984hosting" : {},
+   "acmedns" : {
+      "fields" : {
+         "ACMEDNS_PASSWORD" : {
+            "description" : "The acme-dns password",
+            "type" : "string"
+         },
+         "ACMEDNS_SUBDOMAIN" : {
+            "description" : "The subdomain you got from acme-dns registration",
+            "type" : "string"
+         },
+         "ACMEDNS_UPDATE_URL" : {
+            "description" : "The API update endpoint",
+            "type" : "string"
+         },
+         "ACMEDNS_USERNAME" : {
+            "description" : "The acme-dns user",
+            "type" : "string"
+         }
+      },
+      "name" : "acme-dns"
+   },
+   "acmeproxy" : {},
+   "active24" : {
+      "fields" : {
+         "ACTIVE24_Token" : {
+            "description" : "The API key",
+            "type" : "string"
+         }
+      },
+      "name" : "Active24"
+   },
+   "ad" : {
+      "fields" : {
+         "AD_API_KEY" : {
+            "description" : "The API key",
+            "type" : "string"
+         }
+      },
+      "name" : "Alwaysdata"
+   },
+   "ali" : {
+      "fields" : {
+         "Ali_API" : {
+            "default" : "https://alidns.aliyuncs.com/",
+            "description" : "The API endpoint",
+            "optional" : 1,
+            "type" : "string"
+         },
+         "Ali_Key" : {
+            "description" : "The API Key",
+            "type" : "string"
+         },
+         "Ali_Secret" : {
+            "description" : "The API Secret",
+            "type" : "string"
+         }
+      },
+      "name" : "Alibaba Cloud DNS"
+   },
+   "anx" : {},
+   "arvan" : {},
+   "aurora" : {
+      "fields" : {
+         "AURORA_Key" : {
+            "description" : "The API Key",
+            "type" : "string"
+         },
+         "AURORA_Secret" : {
+            "description" : "The API Secret",
+            "type" : "string"
+         }
+      },
+      "name" : "AuroraDNS"
+   },
+   "autodns" : {},
+   "aws" : {
+      "fields" : {
+         "AWS_ACCESS_KEY_ID" : {
+            "description" : "The AWS access-key ID",
+            "name" : "ACCESS_KEY_ID",
+            "type" : "string"
+         },
+         "AWS_SECRET_ACCESS_KEY" : {
+            "description" : "The AWS access-key secret",
+            "name" : "SECRET_ACCESS_KEY",
+            "type" : "string"
+         }
+      },
+      "name" : "Amazon Route53 (AWS)"
+   },
+   "azure" : {},
+   "cf" : {
+      "description" : "Either provide global account key and email, or CF API token and Account ID.",
+      "fields" : {
+         "CF_Account_ID" : {
+            "description" : "The new Cloudflare API Account ID",
+            "type" : "string"
+         },
+         "CF_Email" : {
+            "description" : "The Cloudflare Account EMail-Address",
+            "type" : "string"
+         },
+         "CF_Key" : {
+            "description" : "The Cloudflare Global API Key",
+            "type" : "string"
+         },
+         "CF_Token" : {
+            "description" : "The new Cloudflare API Token",
+            "type" : "string"
+         },
+         "CF_Zone_ID" : {
+            "description" : "For Zone restricted API Token",
+            "type" : "string"
+         }
+      },
+      "name" : "Cloudflare Managed DNS"
+   },
+   "clouddns" : {},
+   "cloudns" : {},
+   "cn" : {},
+   "conoha" : {},
+   "constellix" : {},
+   "cx" : {},
+   "cyon" : {},
+   "da" : {},
+   "ddnss" : {},
+   "desec" : {},
+   "df" : {},
+   "dgon" : {
+      "fields" : {
+         "DO_API_KEY" : {
+            "description" : "The DigitalOcean API Key",
+            "type" : "string"
+         }
+      },
+      "name" : "DigitalOcean DNS"
+   },
+   "dnsimple" : {},
+   "do" : {},
+   "doapi" : {},
+   "domeneshop" : {},
+   "dp" : {},
+   "dpi" : {},
+   "dreamhost" : {},
+   "duckdns" : {},
+   "durabledns" : {},
+   "dyn" : {},
+   "dynu" : {},
+   "dynv6" : {},
+   "easydns" : {},
+   "edgedns" : {},
+   "euserv" : {},
+   "exoscale" : {},
+   "freedns" : {},
+   "gandi_livedns" : {},
+   "gcloud" : {},
+   "gd" : {
+      "fields" : {
+         "GD_Key" : {
+            "description" : "The GoDaddy API Key",
+            "type" : "string"
+         },
+         "GD_Secret" : {
+            "description" : "The GoDaddy API Secret",
+            "type" : "string"
+         }
+      },
+      "name" : "GoDaddy"
+   },
+   "gdnsdk" : {},
+   "he" : {},
+   "hetzner" : {},
+   "hexonet" : {},
+   "hostingde" : {},
+   "huaweicloud" : {},
+   "infoblox" : {},
+   "infomaniak" : {},
+   "internetbs" : {},
+   "inwx" : {
+      "fields" : {
+         "INWX_Password" : {
+            "description" : "The INWX password",
+            "type" : "string"
+         },
+         "INWX_User" : {
+            "description" : "The INWX username",
+            "type" : "string"
+         }
+      },
+      "name" : "INWX"
+   },
+   "ionos" : {},
+   "ispconfig" : {},
+   "jd" : {},
+   "joker" : {},
+   "kappernet" : {
+      "fields" : {
+         "KAPPERNETDNS_Key" : {
+            "description" : "Your kapper.net API key",
+            "type" : "string"
+         },
+         "KAPPERNETDNS_Secret" : {
+            "description" : "Your kapper.net API secret",
+            "type" : "string"
+         }
+      },
+      "name" : "kapper.net"
+   },
+   "kas" : {},
+   "kinghost" : {},
+   "knot" : {},
+   "leaseweb" : {},
+   "lexicon" : {},
+   "linode" : {},
+   "linode_v4" : {},
+   "loopia" : {},
+   "lua" : {},
+   "maradns" : {},
+   "me" : {},
+   "miab" : {},
+   "misaka" : {},
+   "myapi" : {},
+   "mydevil" : {},
+   "mydnsjp" : {},
+   "namecheap" : {},
+   "namecom" : {},
+   "namesilo" : {},
+   "nederhost" : {},
+   "neodigit" : {},
+   "netcup" : {},
+   "netlify" : {},
+   "nic" : {},
+   "njalla" : {},
+   "nm" : {},
+   "nsd" : {},
+   "nsone" : {},
+   "nsupdate" : {},
+   "nw" : {},
+   "one" : {},
+   "online" : {},
+   "openprovider" : {},
+   "openstack" : {},
+   "opnsense" : {},
+   "ovh" : {
+      "fields" : {
+         "OVH_AK" : {
+            "description" : "The application key.",
+            "type" : "string"
+         },
+         "OVH_AS" : {
+            "description" : "The application secret.",
+            "type" : "string"
+         },
+         "OVH_CK" : {
+            "description" : "The consumer key.",
+            "optional" : 1,
+            "type" : "string"
+         },
+         "OVH_END_POINT" : {
+            "default" : "ovh-eu",
+            "description" : "The OVH endpoint",
+            "optional" : 1,
+            "type" : "string"
+         }
+      },
+      "name" : "OVH"
+   },
+   "pdns" : {
+      "fields" : {
+         "PDNS_ServerId" : {
+            "type" : "string"
+         },
+         "PDNS_Token" : {
+            "type" : "string"
+         },
+         "PDNS_Ttl" : {
+            "type" : "integer"
+         },
+         "PDNS_Url" : {
+            "description" : "The PowerDNS API endpoint.",
+            "type" : "string"
+         }
+      },
+      "name" : "PowerDNS server"
+   },
+   "pleskxml" : {},
+   "pointhq" : {},
+   "porkbun" : {
+      "fields" : {
+         "PORKBUN_API_KEY" : {
+            "description" : "The API Key",
+            "type" : "string"
+         },
+         "PORKBUN_SECRET_API_KEY" : {
+            "description" : "The API Secret",
+            "type" : "string"
+         }
+      },
+      "name" : "Porkbun"
+   },
+   "rackcorp" : {},
+   "rackspace" : {},
+   "rcode0" : {},
+   "regru" : {},
+   "scaleway" : {},
+   "schlundtech" : {},
+   "selectel" : {},
+   "servercow" : {},
+   "simply" : {},
+   "tele3" : {},
+   "transip" : {},
+   "ultra" : {},
+   "unoeuro" : {},
+   "variomedia" : {},
+   "vscale" : {},
+   "vultr" : {},
+   "websupport" : {},
+   "world4you" : {
+      "fields" : {
+         "WORLD4YOU_PASSWORD" : {
+            "description" : "The World4You password",
+            "type" : "string"
+         },
+         "WORLD4YOU_USERNAME" : {
+            "description" : "The World4You customer id or package id",
+            "type" : "string"
+         }
+      },
+      "name" : "World4You"
+   },
+   "yandex" : {},
+   "zilore" : {},
+   "zone" : {},
+   "zonomi" : {}
+}

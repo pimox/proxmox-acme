@@ -5,8 +5,9 @@ use warnings;
 
 use lib '../';
 
-use PVE::Tools qw(dir_glob_foreach);
-use PVE::ACME::DNSChallenge;
+use JSON;
+
+use PVE::Tools qw(dir_glob_foreach file_get_contents);
 
 my $dnsapi_path = '../acme.sh/dnsapi';
 
@@ -18,9 +19,10 @@ dir_glob_foreach($dnsapi_path, qr/dns_(\S+)\.sh/, sub {
     push @$acmesh_plugins, $provider;
 });
 
-my $ok = 1;
-my $defined_plugins = PVE::ACME::DNSChallenge::get_supported_plugins();
+my $DNS_API_CHALLENGE_SCHEMA_FN = '../dns-challenge-schema.json';
+my $defined_plugins = from_json(PVE::Tools::file_get_contents($DNS_API_CHALLENGE_SCHEMA_FN));
 
+my $ok = 1;
 # first check for missing ones, delete from hash so we can easily see if a plug got removed/renamed
 my $printed_missing = 0;
 for my $provider (sort @$acmesh_plugins) {

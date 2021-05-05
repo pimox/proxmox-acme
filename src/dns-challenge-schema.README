@@ -1,0 +1,44 @@
+Introduction
+------------
+
+Promxox projects (PVE, PMG, PBS) all support ACME with DNS challenges.
+As there are many DNS providers we re-use the plugins for the great [acme.sh]
+project.
+
+As a user interface needs to know which plugins there are supported we need to
+provide at least the list of known ones.
+But, we extend that and return a full JSON-Schema oriented Object Schema, so
+that any user-interface can use that to show UX hints and create the respective
+inputs for each plugin.
+
+Note, we do not define a full schema for all plugins, but accept patches for
+adding one. See the [developer-documentation] about how to do so.
+
+We use JSON as format as we need this schema in both, perl and rust based
+projects.
+
+Schema Example
+--------------
+
+A entry describing the data schema of a supported plugin could look like:
+
+```
+'dnsprovider' => {
+    name => 'Full name of Plugin',
+    fields => {
+        'FOO_API_KEY' => {
+            description => "The API key",
+            default => "none",
+            optional => 1,
+            type => 'string',
+        },
+        ...
+    },
+},
+```
+
+References
+----------
+
+[acme.sh]: https://acme.sh/
+[developer-documentation]: https://pve.proxmox.com/wiki/Developer_Documentation

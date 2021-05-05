@@ -137,6 +137,7 @@ all:
 .PHONY: install
 install:
 	install -D -m 0744 proxmox-acme ${DESTDIR}${ACMEDIR}/proxmox-acme
+	install -D -m 0644 dns-challenge-schema.json ${DESTDIR}${ACMEDIR}/dns-challenge-schema.json
 	for f in ${ACME_SOURCES}; do install -D -m 0644 acme.sh/$$f ${DESTDIR}${ACMEDIR}/$$f; done
 	install -d -m 0755 ${DESTDIR}${PERLDIR}/PVE
 	install -d -m 0755 ${DESTDIR}${PERLDIR}/PVE/ACME
