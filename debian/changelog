@@ -1,3 +1,12 @@
+libproxmox-acme (1.1.0) pmg pve; urgency=medium
+
+  * split into perl and acme DNS plugin packages for better re-use with our
+    non-perl projects (PBS)
+
+  * update acme.sh to version 2.8.9 and add new DNS plugins to API schema
+
+ -- Proxmox Support Team <support@proxmox.com>  Wed, 05 May 2021 09:56:25 +0200
+
 libproxmox-acme-perl (1.0.8) pmg pve; urgency=medium
 
   * update acme.sh to current master and add new DNS plugins
