@@ -35,10 +35,14 @@ sub setup {
     my $challenge = $self->extract_challenge($auth->{challenges});
     my $key_auth = $acme->key_authorization($challenge->{token});
 
-    my $server = HTTP::Daemon->new(
+    my %sockopts = (
 	LocalPort => 80,
 	ReuseAddr => 1,
-	) or die "Failed to initialize HTTP daemon\n";
+	);
+    my $server = HTTP::Daemon->new( LocalHost => '::', V6Only => 0, %sockopts) //
+	    HTTP::Daemon->new( LocalHost => '0.0.0.0', %sockopts)
+	    or die "Failed to initialize HTTP daemon\n";
+
     my $pid = fork() // die "Failed to fork HTTP daemon - $!\n";
     if ($pid) {
 	$data->{server} = $server;
