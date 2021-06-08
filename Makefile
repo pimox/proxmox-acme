@@ -47,5 +47,5 @@ clean:
 
 .PHONY: upload
 upload: ${DEBS}
-	tar cf - ${DEBS}|ssh -X repoman@repo.proxmox.com -- upload --product pve,pmg --dist buster --arch ${DEB_BUILD_ARCH}
-	tar cf - ${DEB_ACME_PLUGS}|ssh -X repoman@repo.proxmox.com -- upload --product pbs --dist buster --arch ${DEB_BUILD_ARCH}
+	tar cf - ${DEBS}|ssh -X repoman@repo.proxmox.com -- upload --product pve,pmg --dist bullseye --arch ${DEB_BUILD_ARCH}
+	tar cf - ${DEB_ACME_PLUGS}|ssh -X repoman@repo.proxmox.com -- upload --product pbs --dist bullseye --arch ${DEB_BUILD_ARCH}
