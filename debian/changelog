@@ -1,3 +1,9 @@
+libproxmox-acme (1.1.1) bullseye; urgency=medium
+
+  * fix #3390: standalone: explicitly bind to '::' to ensure IPv6 support
+
+ -- Proxmox Support Team <support@proxmox.com>  Mon, 05 Jul 2021 18:58:10 +0200
+
 libproxmox-acme (1.1.0) pmg pve; urgency=medium
 
   * split into perl and acme DNS plugin packages for better re-use with our
