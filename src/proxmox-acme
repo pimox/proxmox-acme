@@ -33,6 +33,11 @@ _digest() {
   fi
 }
 
+_usage() {
+  __red "$@" >&2
+  printf "\n" >&2
+}
+
 _upper_case() {
   # shellcheck disable=SC2018,SC2019
   tr 'a-z' 'A-Z'
@@ -106,6 +111,115 @@ _egrep_o() {
   if ! egrep -o "$1" 2>/dev/null; then
     sed -n 's/.*\('"$1"'\).*/\1/p'
   fi
+}
+
+_h2b() {
+  if _exists xxd; then
+    if _contains "$(xxd --help 2>&1)" "assumes -c30"; then
+      if xxd -r -p -c 9999 2>/dev/null; then
+        return
+      fi
+    else
+      if xxd -r -p 2>/dev/null; then
+        return
+      fi
+    fi
+  fi
+
+  hex=$(cat)
+  ic=""
+  jc=""
+  _debug2 _URGLY_PRINTF "$_URGLY_PRINTF"
+  if [ -z "$_URGLY_PRINTF" ]; then
+    if [ "$_ESCAPE_XARGS" ] && _exists xargs; then
+      _debug2 "xargs"
+      echo "$hex" | _upper_case | sed 's/\([0-9A-F]\{2\}\)/\\\\\\x\1/g' | xargs printf
+    else
+      for h in $(echo "$hex" | _upper_case | sed 's/\([0-9A-F]\{2\}\)/ \1/g'); do
+        if [ -z "$h" ]; then
+          break
+        fi
+        printf "\x$h%s"
+      done
+    fi
+  else
+    for c in $(echo "$hex" | _upper_case | sed 's/\([0-9A-F]\)/ \1/g'); do
+      if [ -z "$ic" ]; then
+        ic=$c
+        continue
+      fi
+      jc=$c
+      ic="$(_h_char_2_dec "$ic")"
+      jc="$(_h_char_2_dec "$jc")"
+      printf '\'"$(printf "%o" "$(_math "$ic" \* 16 + $jc)")""%s"
+      ic=""
+      jc=""
+    done
+  fi
+
+}
+
+#Usage: keyfile hashalg
+#Output: Base64-encoded signature value
+_sign() {
+  keyfile="$1"
+  alg="$2"
+  if [ -z "$alg" ]; then
+    _usage "Usage: _sign keyfile hashalg"
+    return 1
+  fi
+
+  _sign_openssl="${ACME_OPENSSL_BIN:-openssl} dgst -sign $keyfile "
+
+  if grep "BEGIN RSA PRIVATE KEY" "$keyfile" >/dev/null 2>&1 || grep "BEGIN PRIVATE KEY" "$keyfile" >/dev/null 2>&1; then
+    $_sign_openssl -$alg | _base64
+  elif grep "BEGIN EC PRIVATE KEY" "$keyfile" >/dev/null 2>&1; then
+    if ! _signedECText="$($_sign_openssl -sha$__ECC_KEY_LEN | ${ACME_OPENSSL_BIN:-openssl} asn1parse -inform DER)"; then
+      _err "Sign failed: $_sign_openssl"
+      _err "Key file: $keyfile"
+      _err "Key content:$(wc -l <"$keyfile") lines"
+      return 1
+    fi
+    _debug3 "_signedECText" "$_signedECText"
+    _ec_r="$(echo "$_signedECText" | _head_n 2 | _tail_n 1 | cut -d : -f 4 | tr -d "\r\n")"
+    _ec_s="$(echo "$_signedECText" | _head_n 3 | _tail_n 1 | cut -d : -f 4 | tr -d "\r\n")"
+    if [ "$__ECC_KEY_LEN" -eq "256" ]; then
+      while [ "${#_ec_r}" -lt "64" ]; do
+        _ec_r="0${_ec_r}"
+      done
+      while [ "${#_ec_s}" -lt "64" ]; do
+        _ec_s="0${_ec_s}"
+      done
+    fi
+    if [ "$__ECC_KEY_LEN" -eq "384" ]; then
+      while [ "${#_ec_r}" -lt "96" ]; do
+        _ec_r="0${_ec_r}"
+      done
+      while [ "${#_ec_s}" -lt "96" ]; do
+        _ec_s="0${_ec_s}"
+      done
+    fi
+    if [ "$__ECC_KEY_LEN" -eq "512" ]; then
+      while [ "${#_ec_r}" -lt "132" ]; do
+        _ec_r="0${_ec_r}"
+      done
+      while [ "${#_ec_s}" -lt "132" ]; do
+        _ec_s="0${_ec_s}"
+      done
+    fi
+    _debug3 "_ec_r" "$_ec_r"
+    _debug3 "_ec_s" "$_ec_s"
+    printf "%s" "$_ec_r$_ec_s" | _h2b | _base64
+  else
+    _err "Unknown key file format."
+    return 1
+  fi
+
+}
+
+#dummy function because proxmox-acme does not call inithttp
+_resethttp() {
+  :
 }
 
 # body  url [needbase64] [POST|PUT|DELETE] [ContentType]
