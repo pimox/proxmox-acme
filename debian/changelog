@@ -1,3 +1,14 @@
+libproxmox-acme (1.2.0) bullseye; urgency=medium
+
+  * plugin-caller: add some missing methods from acme.sh that newer plugins
+    use
+
+  * plugin-caller: make no-ops always successful
+
+  * update to acme.sh dns plugins to 2.9.0
+
+ -- Proxmox Support Team <support@proxmox.com>  Fri, 16 Jul 2021 18:06:19 +0200
+
 libproxmox-acme (1.1.1) bullseye; urgency=medium
 
   * fix #3390: standalone: explicitly bind to '::' to ensure IPv6 support
