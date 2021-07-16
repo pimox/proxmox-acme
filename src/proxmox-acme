@@ -609,7 +609,7 @@ __red() {
 }
 
 _log() {
-    return
+    return 0
 }
 
 _info() {
@@ -640,11 +640,11 @@ _readaccountconf_mutable() {
 
 # no-ops:
 _clearaccountconf() {
-  return
+  return 0
 }
 
 _cleardomainconf() {
-  return
+  return 0
 }
 
 _debug() {
@@ -676,23 +676,23 @@ _secure_debug3() {
 }
 
 _saveaccountconf() {
-  return
+  return 0
 }
 
 _saveaccountconf_mutable() {
-  return
+  return 0
 }
 
 _save_conf() {
-  return
+  return 0
 }
 
 _savedomainconf() {
-  return
+  return 0
 }
 
 _source_plugin_config() {
-  return
+  return 0
 }
 
 # Proxmox implementation to inject the DNSAPI variables
