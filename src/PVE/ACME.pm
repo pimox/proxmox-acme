@@ -69,7 +69,9 @@ sub tojs($;%) { # shortcut for to_json with utf8=>1
 }
 
 sub fromjs($) {
-    return from_json($_[0]);
+    my ($data) = @_;
+    ($data) = ($data =~ /^(.*)$/s); # untaint from_json croaks on error anyways.
+    return from_json($data);
 }
 
 sub fatal($$;$$) {
@@ -449,7 +451,13 @@ sub get_certificate {
        if !$order->{certificate};
 
     my $r = $self->do(POST => $order->{certificate}, '');
-    my $return = eval { __get_result($r, 200, 1); };
+    my $return = eval {
+	my $res = __get_result($r, 200, 1);
+	if ($res =~ /^(-----BEGIN CERTIFICATE-----)(.+)(-----END CERTIFICATE-----)$/s) { # untaint
+	    return $1 . $2 . $3;
+	}
+	die "Server reply does not look like a PEM encoded certificate\n";
+    };
     $self->fatal("POST of '$order->{certificate}' failed - $@", $r) if $@;
     return $return;
 }
