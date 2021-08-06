@@ -14,6 +14,7 @@ ACME_SOURCES = \
 	dnsapi/dns_aurora.sh \
 	dnsapi/dns_autodns.sh \
 	dnsapi/dns_aws.sh \
+	dnsapi/dns_azion.sh \
 	dnsapi/dns_azure.sh \
 	dnsapi/dns_cf.sh \
 	dnsapi/dns_clouddns.sh \
@@ -93,6 +94,7 @@ ACME_SOURCES = \
 	dnsapi/dns_nsone.sh \
 	dnsapi/dns_nsupdate.sh \
 	dnsapi/dns_nw.sh \
+	dnsapi/dns_oci.sh \
 	dnsapi/dns_one.sh \
 	dnsapi/dns_online.sh \
 	dnsapi/dns_openprovider.sh \

@@ -90,6 +90,7 @@
       },
       "name" : "Amazon Route53 (AWS)"
    },
+   "azion" : {},
    "azure" : {},
    "cf" : {
       "description" : "Either provide global account key and email, or CF API token and Account ID.",
@@ -238,6 +239,7 @@
    "nsone" : {},
    "nsupdate" : {},
    "nw" : {},
+   "oci" : {},
    "one" : {},
    "online" : {},
    "openprovider" : {},
