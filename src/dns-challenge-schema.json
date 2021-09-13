@@ -237,7 +237,24 @@
    "nm" : {},
    "nsd" : {},
    "nsone" : {},
-   "nsupdate" : {},
+   "nsupdate" : {
+      "fields" : {
+         "NSUPDATE_SERVER" : {
+            "description" : "Hostname of the RFC 2136 compatible nameserver",
+            "type" : "string"
+         },
+         "NSUPDATE_KEY" : {
+            "description" : "Path to the nsupdate key file (TSIG key)",
+            "type" : "string"
+         },
+         "NSUPDATE_ZONE" : {
+            "description" : "DNS zone name (optional)",
+            "optional" : 1,
+            "type" : "string"
+         }
+      },
+      "name" : "nsupdate (RFC 2136)"
+   },
    "nw" : {},
    "oci" : {},
    "one" : {},
